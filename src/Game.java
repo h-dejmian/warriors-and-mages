@@ -1,12 +1,26 @@
 import Characters.*;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
-public class Game implements Callable {
+public class Game  {
+    private static int id;
+    public static final Statistics stats = new Statistics();
+    private List<Hero> contestants;
 
-    public Hero call() {
+    public Game() {
+        ++id;
+        contestants = null;
+    }
+
+    public Game(List<Hero> heroes) {
+        ++id;
+        this.contestants = heroes;
+    }
+
+    public Hero startGameRound() {
+        System.out.println("Game nr " + id);
         Arena arena = new Arena();
+        stats.addArena(arena);
 
         arena.addNewHeroes(2);
 
@@ -26,12 +40,23 @@ public class Game implements Callable {
         }
 
         return arena.getWinner();
-
-    /*    Statistics stats = new Statistics(arena);
-        stats.showWinner();
-        stats.showAlliedCreatures(arena.getWinner());
-        stats.showAllHeroes(); */
     }
+
+    public Hero startGameFinal() {
+        System.out.println("Game nr " + id);
+        Arena arena = new Arena();
+        stats.addArena(arena);
+
+        arena.addHero(contestants.get(0));
+        arena.addHero(contestants.get(1));
+
+        Duel duel = new Duel((Hero)arena.getHeroes().get(0), (Hero)arena.getHeroes().get(1), arena);
+        duel.battle();
+
+        return arena.getWinner();
+    }
+
+
 
 
 }

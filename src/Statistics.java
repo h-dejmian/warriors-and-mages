@@ -1,25 +1,30 @@
 import Characters.Hero;
 import Characters.LifeForm;
 
-public class Statistics {
-    private final Arena arena;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Statistics(Arena arena) {
-        this.arena = arena;
+public class Statistics {
+    private final List<Arena> arenas = new ArrayList<>();
+
+    public List<Arena> getArenas() {
+        return arenas;
     }
 
     public void showWinner() {
         System.out.println("Game winner:");
-        System.out.println(arena.getWinner());
+        System.out.println(arenas.get(arenas.size()-1).getWinner());
         System.out.println();
     }
 
     public void showAllHeroes() {
         System.out.println("Other contestants:");
 
-        for(LifeForm h : arena.getDeadHeroes()) {
-            if (!h.equals(arena.getWinner())) System.out.println(h);
-            System.out.println();
+        for(Arena a : arenas) {
+            for(LifeForm h : a.getHeroes()) {
+                if (!h.equals(a.getWinner())) System.out.println(h);
+                System.out.println();
+            }
         }
     }
 
@@ -27,5 +32,9 @@ public class Statistics {
           System.out.println("Allied creatures: ");
           for(LifeForm lf : hero.getAlliedCreatures()) System.out.println(lf);
           System.out.println();
+    }
+
+    public void addArena(Arena arena) {
+        arenas.add(arena);
     }
 }

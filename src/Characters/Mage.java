@@ -1,7 +1,5 @@
 package Characters;
 
-import java.util.Iterator;
-
 public class Mage extends Hero implements Sorcerer, Cloneable {
 
     private int force = 10;

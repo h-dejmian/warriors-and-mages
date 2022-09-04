@@ -2,7 +2,6 @@ package Characters;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 public class Necromancer extends Hero implements Summoner {
@@ -76,6 +75,7 @@ public class Necromancer extends Hero implements Summoner {
     }
 
     public boolean summonSkeleton() {
+        if(this.alliedCreatures.size() == 6) return false;
         int number = new Random().nextInt(4);
         if(energy >= 10 && number > 2 ) {
             alliedCreatures.add(new Skeleton());
@@ -85,6 +85,7 @@ public class Necromancer extends Hero implements Summoner {
     }
 
     public boolean summonGolem() {
+        for(LifeForm lf : this.alliedCreatures) if(lf instanceof Golem) return false;
         int number = new Random().nextInt(4);
         if(energy >= 10 && number == 3 ) {
             alliedCreatures.add(new Golem());

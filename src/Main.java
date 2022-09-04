@@ -1,8 +1,8 @@
 import Characters.Hero;
-import com.sun.security.jgss.GSSUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -11,54 +11,39 @@ public class Main {
 
         for(int i=0; i<4; i++) {
             Game game = new Game();
-            Hero hero = game.call();
+            Hero hero = game.startGameRound();
             semiFinals.add(hero);
         }
 
+        System.out.println("SEMIFINALS");
         for(Hero h : semiFinals) {
             System.out.println(h);
             System.out.println();
         }
 
-
-        Hero hero1;
-        Hero hero2;
-
-        for(int i=0; i<4; i+=2) {
-            hero1 = semiFinals.get(i);
-            hero2 = semiFinals.get(i + 1);
-            Arena arena = new Arena();
-
-            arena.addHero(hero1);
-            arena.addHero(hero2);
-
-            Duel duel = new Duel(hero1, hero2, arena);
-            duel.battle();
-            fiNal.add(duel.getArena().getWinner());
+        for(int i=0; i<2; i++) {
+            Game game = new Game(semiFinals);
+            Hero hero = game.startGameFinal();
+            fiNal.add(hero);
         }
 
-        for(Hero h : fiNal) System.out.println(h);
-        System.out.println();
+        System.out.println("FINAL");
+        for(Hero h : fiNal) {
+            System.out.println(h);
+            System.out.println();
+        }
 
-        hero1 = fiNal.get(0);
-        hero2 = fiNal.get(1);
+        Game game = new Game(fiNal);
+        Hero hero = game.startGameFinal();
+        //get winner to stats
 
-        Arena arena = new Arena();
+        System.out.println("ALL TIME WINNER IS:");
+        System.out.println(hero);
 
-        arena.addHero(hero1);
-        arena.addHero(hero2);
+        Game.stats.showAlliedCreatures(hero);
+        Game.stats.showAllHeroes();
 
-        Duel duel = new Duel(hero1, hero2, arena);
-        duel.battle();
-        fiNal.add(duel.getArena().getWinner());
-
-
-        System.out.println("FUCKING ALL TIME WINNER IS:");
-        System.out.println(duel.getArena().getWinner());
-        Statistics stats = new Statistics(arena);
-        stats.showAlliedCreatures(duel.getArena().getWinner());
-        stats.showAllHeroes();
-
+        Game.stats.showWinner();
 
 
     }
