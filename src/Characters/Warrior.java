@@ -1,5 +1,7 @@
 package Characters;
 
+import java.util.Random;
+
 public class Warrior extends Hero {
 
     private int strenght = 10;
@@ -7,7 +9,7 @@ public class Warrior extends Hero {
     public Warrior() {
         this.heroId = ++Hero.idCount;
         this.health = 130;
-        this.energy = 80;
+        this.energy = 90;
     }
 
     @Override
@@ -15,16 +17,24 @@ public class Warrior extends Hero {
         String opponentName = opponent.getClass().getSimpleName();
 
         System.out.println("Warrior attacking!");
-        if(!opponent.defend()) {
-            opponent.health -= 10 + strenght;
-            System.out.println(opponentName + "'s health: " + opponent.health);
-
-            if(opponent.isDead()) {
-                System.out.println(opponentName + " died!");
-                System.out.println();
-            }
+        int attacks = 1;
+        if(berserkerAttack()) {
+            System.out.println("Warrior enters berserker state, attacks multiple times!");
+            attacks = 3;
         }
-        else System.out.println("Attack failed!");
+
+        while(attacks > 0) {
+            if (!opponent.defend()) {
+                opponent.health -= 10 + strenght;
+                System.out.println(opponentName + "'s health: " + opponent.health);
+
+                if (opponent.isDead()) {
+                    System.out.println(opponentName + " died!");
+                    System.out.println();
+                }
+            } else System.out.println("Attack failed!");
+            attacks--;
+        }
     }
 
     @Override
@@ -42,8 +52,8 @@ public class Warrior extends Hero {
         health = 130;
         health += 10 * level;
 
-        energy = 80;
-        energy += 5;
+        energy = 90;
+        energy += 5 * level;
         System.out.println("Warrior level up!");
         System.out.println();
     }
@@ -62,5 +72,14 @@ public class Warrior extends Hero {
             levelUp();
             currentLvlExperience = 0;
         }
+    }
+
+    public boolean berserkerAttack() {
+        int number = new Random().nextInt(4);
+        if(energy >= 30 && number == 3 ) {
+            this.energy -= 30;
+            return true;
+        }
+        return false;
     }
 }

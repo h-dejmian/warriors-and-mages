@@ -89,6 +89,7 @@ public class Mage extends Hero implements Sorcerer, Cloneable {
     @Override
     public boolean createClone() {
         try {
+            if(alliedCreatures.size() > 0) return false;
             int number = (int) (Math.random() * 10) + 1;
             if(this.energy < 50) return false;
             if(number > 5) {

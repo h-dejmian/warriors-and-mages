@@ -10,7 +10,7 @@ public class Necromancer extends Hero implements Summoner {
 
     public Necromancer() {
         this.heroId = ++Hero.idCount;
-        this.health = 100;
+        this.health = 80;
         this.energy = 130;
         this.alliedCreatures = new ArrayList<>();
         alliedCreatures.add(new Skeleton());
@@ -48,7 +48,7 @@ public class Necromancer extends Hero implements Summoner {
         level += 1;
         force += 10;
 
-        health = 100;
+        health = 80;
         health += 10 * level;
 
         energy = 130;
@@ -76,8 +76,10 @@ public class Necromancer extends Hero implements Summoner {
 
     public boolean summonSkeleton() {
         if(this.alliedCreatures.size() == 6) return false;
+
         int number = new Random().nextInt(4);
-        if(energy >= 10 && number > 2 ) {
+        if(energy >= 30 && number > 2 ) {
+            this.energy -= 30;
             alliedCreatures.add(new Skeleton());
             return true;
         }
@@ -87,7 +89,8 @@ public class Necromancer extends Hero implements Summoner {
     public boolean summonGolem() {
         for(LifeForm lf : this.alliedCreatures) if(lf instanceof Golem) return false;
         int number = new Random().nextInt(4);
-        if(energy >= 10 && number == 3 ) {
+        if(energy >= 50 && number == 3 ) {
+            this.energy -= 50;
             alliedCreatures.add(new Golem());
             return true;
         }
