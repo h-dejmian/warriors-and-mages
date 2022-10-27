@@ -38,11 +38,13 @@ public class Duel {
                 arena.removeLifeForm(hero2);
                 arena.removeLifeForms(hero2.getAlliedCreatures());
                 arena.removeLifeForms(hero1.getAlliedCreatures());
+                /*
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                 */
                 return true;
             }
 
@@ -55,12 +57,12 @@ public class Duel {
                     arena.removeLifeForm(lifeForm);
                 }
             }
-
+       /*
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        } */
 
         return false;
     }

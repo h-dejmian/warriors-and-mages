@@ -11,14 +11,18 @@ public class Main {
         List<Hero> heroesSemiFinals = new ArrayList<>();
         List<Hero> heroesfiNal = new ArrayList<>();
 
+        //One duel test
+        /*
         List<Hero> heroesTest = new ArrayList<>();
         heroesTest.add(HeroFactory.create(ClassName.WARRIOR));
         heroesTest.add(HeroFactory.create(ClassName.MAGE));
 
         Game game = new Game(heroesTest);
         Hero hero = game.startGameFinal();
+        */
 
-    /*    for(int i=0; i<4; i++) {
+
+        for(int i=0; i<4; i++) {
             Game game = new Game();
             Hero hero = game.startGameRound();
             heroesSemiFinals.add(hero);
@@ -45,7 +49,7 @@ public class Main {
         Game game = new Game(heroesfiNal);
         Hero hero = game.startGameFinal();
 
-     */
+
 
         Game.stats.showWinner();
         Game.stats.showAlliedCreatures(hero);
